@@ -1,0 +1,43 @@
+FROM seffeng/debian
+
+LABEL author="zxf <seffeng@live.com>"
+
+ARG BASE_DIR="/opt/websrv"
+ARG CANAL_VERSION="1.1.6"
+ARG CANAL_NAME="canal-server"
+
+ENV BASE_DIR="${BASE_DIR}"\
+ CONFIG_DIR="${BASE_DIR}/config"\
+ CANAL_NAME="${CANAL_NAME}"\
+ INSTALL_DIR="${BASE_DIR}/program/${CANAL_NAME}"\
+ BASE_PACKAGE="wget"\
+ EXTEND="openjdk-11-jdk file procps"\
+ CANAL_URL="https://github.com/alibaba/canal/releases/download/canal-${CANAL_VERSION}/canal.deployer-${CANAL_VERSION}.tar.gz"
+
+WORKDIR /tmp
+
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+RUN \
+ apt-get update && apt-get install -y ${BASE_PACKAGE} ${EXTEND} &&\
+ wget ${CANAL_URL} &&\
+ mkdir -p ${INSTALL_DIR} ${CONFIG_DIR} ${BASE_DIR}/tmp &&\
+ tar -zxf /tmp/canal.deployer-${CANAL_VERSION}.tar.gz -C ${INSTALL_DIR} &&\
+ ln -s ${INSTALL_DIR}/conf ${CONFIG_DIR}/${CANAL_NAME} &&\
+ ln -s ${INSTALL_DIR}/logs ${BASE_DIR}/logs &&\
+ cd ${INSTALL_DIR} && tar -zcf conf.tar.gz conf &&\
+ mv conf.tar.gz ${BASE_DIR}/tmp &&\
+ chmod +x /usr/local/bin/docker-entrypoint.sh &&\
+ apt-get purge -y ${BASE_PACKAGE} &&\
+ apt-get clean &&\
+ rm -rf ${CONFIG_DIR}/${CANAL_NAME}/* &&\
+ rm -rf /var/cache/* &&\
+ rm -rf /tmp/*
+
+VOLUME ["${BASE_DIR}/logs"]
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 11110 11111 11112
+
+CMD ["bash"]
