@@ -50,36 +50,37 @@ $ /opt/websrv/program/canal-adapter/bin/stop.sh
 ```shell
 # 单机模式主要修改配置文件
 ## canal-server
-### 1、修改实例下的 instance.properties，比如 example 目录下 instance.properties
-### 1.1 数据库链接地址：canal.instance.master.address
-### 1.2 数据账号密码：canal.instance.dbUsername、canal.instance.dbPassword
-### 1.3 监控数据表示例：canal.instance.filter.regex=test.user,test.user_info
+### 1 修改 canal.properties 配置文件，将 canal.destinations 设置为空
+### 2、修改实例下的 instance.properties，比如 example 目录下 instance.properties
+### 2.1 数据库链接地址：canal.instance.master.address
+### 2.2 数据账号密码：canal.instance.dbUsername、canal.instance.dbPassword
+### 2.3 监控数据表示例：canal.instance.filter.regex=test.user,test.user_info
 
 ## canal-adapter
-### 2、注释 bootstrap.yml 配置
-### 3、application.yml 配置文件修改
-#### 3.1 修改 canal.tcp.server.host 值，IP 或 域名
-#### 3.2 取消注释 srcDataSources，修改需监控的数据库连接信息（数据库、账号、密码）
-#### 3.3 outerAdapters 增加 ES7 配置，修改 hosts、security.auth，注意空格缩进位置
+### 3、注释 bootstrap.yml 配置
+### 4、application.yml 配置文件修改
+#### 4.1 修改 canal.tcp.server.host 值，IP 或 域名
+#### 4.2 取消注释 srcDataSources，修改需监控的数据库连接信息（数据库、账号、密码）
+#### 4.3 outerAdapters 增加 ES7 配置，修改 hosts、security.auth，注意空格缩进位置
 - name: es7
   hosts: es-hostname:9200 # 127.0.0.1:9200 for rest mode
   properties:
     mode: rest # or rest
     security.auth: username:password #  only used for rest mode
     cluster.name: elasticsearch
-### 4、修改 es7 目录下对应配置，以 mytest_user.yml 为例
-#### 4.1 修改 _index 对应 ES 服务的索引
-#### 4.2 修改 sql 对应相关的查询
-#### 4.3 修改 etlCondition 对应相关的查询条件
+### 5、修改 es7 目录下对应配置，以 mytest_user.yml 为例
+#### 5.1 修改 _index 对应 ES 服务的索引
+#### 5.2 修改 sql 对应相关的查询
+#### 5.3 修改 etlCondition 对应相关的查询条件
 
 # 多数据源配置
 ## canal-server
-### 5、配置文件目录新建文件夹，如：test，参考上面 1 在 test 下新建配置文件 instance.properties，并修改
-#### 5.1 注意文件夹名跟 canal-adapter 配置文件 application.yml 的 instance 一致
+### 6、配置文件目录新建文件夹，如：test，参考上面 2 在 test 下新建配置文件 instance.properties，并修改
+#### 6.1 注意文件夹名跟 canal-adapter 配置文件 application.yml 的 instance 一致
 
 ## canal-adapter
-### 6、application.yml 配置文件修改，参考上面 3
-#### 6.1  srcDataSources 增加新配置项，示例：testDS，注意空格缩进位置
+### 7、application.yml 配置文件修改，参考上面 4
+#### 7.1  srcDataSources 增加新配置项，示例：testDS，注意空格缩进位置
 defaultDS
   ...
 testDS:
@@ -87,7 +88,7 @@ testDS:
   username: root
   password: 121212
 
-#### 6.2 canalAdapters 增加新配置，示例：- instance: test（与上面 5 文件夹名一致），注意空格缩进位置
+#### 7.2 canalAdapters 增加新配置，示例：- instance: test（与上面 6 文件夹名一致），注意空格缩进位置
 - instance: example # canal instance Name or mq topic name
   ...
 - instance: test # canal instance Name or mq topic name
@@ -102,10 +103,10 @@ testDS:
         security.auth: username:password #  only used for rest mode
         cluster.name: elasticsearch
 
-### 7、es7 目录下新建配置，如 test.yml，参考上面 4
-#### 7.1 修改 dataSourceKey 对应 application.yml 的 srcDataSources(testDS)
-#### 7.2 修改 destination 对应 5 新建的文件夹名(test)
-#### 7.3 修改 groupId 对应 application.yml 中 instance 下 groupId
+### 8、es7 目录下新建配置，如 test.yml，参考上面 5
+#### 8.1 修改 dataSourceKey 对应 application.yml 的 srcDataSources(testDS)
+#### 8.2 修改 destination 对应 6 新建的文件夹名(test)
+#### 8.3 修改 groupId 对应 application.yml 中 instance 下 groupId
 
 ```
 
