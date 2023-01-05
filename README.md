@@ -75,6 +75,7 @@ $ /opt/websrv/program/canal-adapter/bin/stop.sh
 # 多数据源配置
 ## canal-server
 ### 5、配置文件目录新建文件夹，如：test，参考上面 1 在 test 下新建配置文件 instance.properties，并修改
+#### 5.1 注意文件夹名跟 canal-adapter 配置文件 application.yml 的 instance 一致
 
 ## canal-adapter
 ### 6、application.yml 配置文件修改，参考上面 3
@@ -86,7 +87,7 @@ testDS:
   username: root
   password: 121212
 
-#### 6.2 canalAdapters 增加新配置项，示例：- instance: test，注意空格缩进位置
+#### 6.2 canalAdapters 增加新配置，示例：- instance: test（与上面 5 文件夹名一致），注意空格缩进位置
 - instance: example # canal instance Name or mq topic name
   ...
 - instance: test # canal instance Name or mq topic name
@@ -102,8 +103,8 @@ testDS:
         cluster.name: elasticsearch
 
 ### 7、es7 目录下新建配置，如 test.yml，参考上面 4
-#### 7.1 修改 dataSourceKey 对应 application.yml 的 instance
-#### 7.2 修改 destination 对应 5 新建的文件夹名
+#### 7.1 修改 dataSourceKey 对应 application.yml 的 srcDataSources(testDS)
+#### 7.2 修改 destination 对应 5 新建的文件夹名(test)
 #### 7.3 修改 groupId 对应 application.yml 中 instance 下 groupId
 
 ```
