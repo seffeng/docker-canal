@@ -16,14 +16,14 @@ jdk: ^11.0
 
 ```sh
 # 拉取镜像
-$ docker pull seffeng/canal:server
-$ docker pull seffeng/canal:adapter
+$ docker pull seffeng/canal-server
+$ docker pull seffeng/canal-adapter
 
 # 运行
 ## canal-server
-$ docker run --name canal-server -id  -v <data-dir>:/opt/websrv/config/canal-server -v <log-dir>:/opt/websrv/logs seffeng/canal:server
+$ docker run --name canal-server -id  -v <data-dir>:/opt/websrv/config/canal-server -v <log-dir>:/opt/websrv/logs seffeng/canal-server
 ## canal-adapter
-$ docker run --name canal-adapter -id  -v <data-dir>:/opt/websrv/config/canal-adapter -v <log-dir>:/opt/websrv/logs seffeng/canal:adapter
+$ docker run --name canal-adapter -id  -v <data-dir>:/opt/websrv/config/canal-adapter -v <log-dir>:/opt/websrv/logs seffeng/canal-adapter
 
 # 启动服务（容器内操作），启动服务前注意先修改配置文件
 ## canal-server
@@ -123,8 +123,8 @@ $ curl -X POST http://127.0.0.1:8081/etl/es7/mytest_user.yml -d 'params=0'
 $ docker network create network-01
 
 ## 运行容器增加 --network network-01 --network-alias [name-net-alias]
-$ docker run --name canal-server-alias1 --network network-01 --network-alias canal-server-net1 -id -v /opt/websrv/config/canal-server:/opt/websrv/config/canal-server -v /opt/websrv/logs/canal-server:/opt/websrv/logs seffeng/canal:server
+$ docker run --name canal-server-alias1 --network network-01 --network-alias canal-server-net1 -id -v /opt/websrv/config/canal-server:/opt/websrv/config/canal-server -v /opt/websrv/logs/canal-server:/opt/websrv/logs seffeng/canal-server
 
-$ docker run --name canal-adapter-alias1 --network network-01 --network-alias canal-adapter-net1 -id -v /opt/websrv/config/canal-adapter:/opt/websrv/config/canal-adapter -v /opt/websrv/logs/canal-adapter:/opt/websrv/logs seffeng/canal:adapter
+$ docker run --name canal-adapter-alias1 --network network-01 --network-alias canal-adapter-net1 -id -v /opt/websrv/config/canal-adapter:/opt/websrv/config/canal-adapter -v /opt/websrv/logs/canal-adapter:/opt/websrv/logs seffeng/canal-adapter
 ```
 
