@@ -11,7 +11,7 @@ ENV BASE_DIR="${BASE_DIR}"\
  CANAL_NAME="${CANAL_NAME}"\
  INSTALL_DIR="${BASE_DIR}/program/${CANAL_NAME}"\
  BASE_PACKAGE="wget"\
- EXTEND="openjdk-11-jdk file procps"\
+ EXTEND="openjdk-11-jre file procps"\
  CANAL_URL="https://github.com/alibaba/canal/releases/download/canal-${CANAL_VERSION}/canal.adapter-${CANAL_VERSION}.tar.gz"
 
 WORKDIR /tmp
