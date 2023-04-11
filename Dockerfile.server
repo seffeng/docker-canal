@@ -1,9 +1,9 @@
-FROM seffeng/debian
+FROM debian:9
 
 LABEL author="zxf <seffeng@live.com>"
 
 ARG BASE_DIR="/opt/websrv"
-ARG CANAL_VERSION="1.1.6"
+ARG CANAL_VERSION="1.1.5"
 ARG CANAL_NAME="canal-server"
 
 ENV BASE_DIR="${BASE_DIR}"\
@@ -11,7 +11,7 @@ ENV BASE_DIR="${BASE_DIR}"\
  CANAL_NAME="${CANAL_NAME}"\
  INSTALL_DIR="${BASE_DIR}/program/${CANAL_NAME}"\
  BASE_PACKAGE="wget"\
- EXTEND="openjdk-11-jre file procps"\
+ EXTEND="openjdk-8-jre file procps"\
  CANAL_URL="https://github.com/alibaba/canal/releases/download/canal-${CANAL_VERSION}/canal.deployer-${CANAL_VERSION}.tar.gz"
 
 WORKDIR /tmp
@@ -19,6 +19,9 @@ WORKDIR /tmp
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 RUN \
+ sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&\
+ sed -i 's/security.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&\
+ unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
  apt-get update && apt-get install -y ${BASE_PACKAGE} ${EXTEND} &&\
  wget ${CANAL_URL} &&\
  mkdir -p ${INSTALL_DIR} ${CONFIG_DIR} ${BASE_DIR}/tmp &&\

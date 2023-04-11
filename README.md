@@ -2,14 +2,14 @@
 
 ## 版本
 
-* [1.1.6 , latest](https://github.com/seffeng/docker-canal)
+* [1.1.5](https://github.com/seffeng/docker-canal/tree/1.1.5)
 
 ## 环境
 
 ```shell
-debian: ^11.0
-canal: ^1.1.6
-jdk: ^11.0
+debian: ^9.0
+canal: ^1.1.5
+jdk: ^8.0
 ```
 
 ## 常用命令：
