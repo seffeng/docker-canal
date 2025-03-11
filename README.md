@@ -2,7 +2,7 @@
 
 ## 版本
 
-* [1.1.7 , latest](https://github.com/seffeng/docker-canal)
+* [1.1.8 , latest](https://github.com/seffeng/docker-canal)
 * [1.1.6](https://github.com/seffeng/docker-canal/tree/1.1.6)
 * [1.1.5](https://github.com/seffeng/docker-canal/tree/1.1.5)
 
@@ -10,7 +10,7 @@
 
 ```shell
 debian: ^11.0
-canal: ^1.1.7
+canal: ^1.1.8
 jdk: ^11.0
 ```
 
