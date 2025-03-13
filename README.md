@@ -115,7 +115,7 @@ testDS:
 ## 备注
 
 ```shell
-# 全量同步，主要 adapter 地址和端口，任务配置文件 mytest_user.yml 和 查询条件参数（多个用;隔开）
+# 全量同步，注意 adapter 地址和端口，任务配置文件 mytest_user.yml 和 查询条件参数（多个用;隔开）
 $ curl -X POST http://127.0.0.1:8081/etl/es7/mytest_user.yml -d 'params=0'
 ```
 
