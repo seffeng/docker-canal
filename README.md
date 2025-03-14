@@ -2,7 +2,7 @@
 
 ## 版本
 
-* [1.1.8 , latest](https://github.com/seffeng/docker-canal)
+* [1.1.8 , latest](https://github.com/seffeng/docker-canal/tree/1.1.8)
 * [1.1.6](https://github.com/seffeng/docker-canal/tree/1.1.6)
 * [1.1.5](https://github.com/seffeng/docker-canal/tree/1.1.5)
 
@@ -82,7 +82,8 @@ $ /opt/websrv/program/canal-adapter/bin/stop.sh
 
 ## canal-adapter
 ### 7、application.yml 配置文件修改，参考上面 4
-#### 7.1  srcDataSources 增加新配置项，示例：testDS，注意空格缩进位置
+#### 7.1 srcDataSources 增加新配置项，示例：testDS，注意空格缩进位置
+#### 7.2 url可以加上时区参数：mytest?useTimezone=true&serverTimezone=Asia/Shanghai
 defaultDS
   ...
 testDS:
@@ -90,7 +91,7 @@ testDS:
   username: root
   password: 121212
 
-#### 7.2 canalAdapters 增加新配置，示例：- instance: test（与上面 6 文件夹名一致），注意空格缩进位置
+#### 7.3 canalAdapters 增加新配置，示例：- instance: test（与上面 6 文件夹名一致），注意空格缩进位置
 - instance: example # canal instance Name or mq topic name
   ...
 - instance: test # canal instance Name or mq topic name
