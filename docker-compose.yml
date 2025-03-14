@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  canal-adapter-1:
+    container_name: "canal-adapter-alias1"
+    image: "seffeng/canal-adapter"
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      network-01:
+        aliases:
+          - canal-adapter-net1
+    volumes:
+      - "/opt/websrv/config/canal-adapter:/opt/websrv/config/canal-adapter"
+      - "/opt/websrv/logs/canal-adapter:/opt/websrv/logs"
+
+  canal-server-1:
+    container_name: "canal-server-alias1"
+    image: "seffeng/canal-server"
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      network-01:
+        aliases:
+          - canal-server-net1
+    volumes:
+      - "/opt/websrv/config/canal-server:/opt/websrv/config/canal-server"
+      - "/opt/websrv/logs/canal-server:/opt/websrv/logs"
+
+networks:
+  network-01:
+    driver: bridge
+    name: network-01
